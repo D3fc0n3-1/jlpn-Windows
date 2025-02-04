@@ -14,6 +14,11 @@ namespace JNLP_Launcher
 
         private void LaunchButton_Click(object sender, RoutedEventArgs e)
         {
+            if (UrlTextBox == null) {
+                MessageBox.Show("URL TextBox is not initialized.");
+                return;
+            }
+
             string url = UrlTextBox.Text;
             if (string.IsNullOrEmpty(url))
             {
@@ -21,13 +26,21 @@ namespace JNLP_Launcher
                 return;
             }
 
+            if (!Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) ||
+                (uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps))
+            {
+                MessageBox.Show("Please enter a valid HTTP/HTTPS URL");
+                return;
+            }
+
             try
             {
-                Process.Start(url);
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error launching JNLP: " + ex.Message);
+                // Optionally log the error to a file or system event log
             }
         }
     }
