@@ -7,7 +7,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="UrlTextBox" Grid.Row="0" Margin="10"/>
-        <Button x:Name="LaunchButton" Grid.Row="1" Margin="10" Content="Launch" Click="LaunchButton_Click"/>
+        <TextBox x:Name="UrlTextBox" Grid.Row="0" Margin="10" AutomationProperties.Name="URL Input"/>
+        <Button x:Name="LaunchButton" Grid.Row="1" Margin="10" Content="Launch" Click="LaunchButton_Click" AutomationProperties.Name="Launch Button"/>
     </Grid>
 </Window>
